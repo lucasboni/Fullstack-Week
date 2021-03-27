@@ -5,11 +5,14 @@
  */
 package bittencourt.boni.FullStackWeek.domain;
 
+import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -26,6 +29,11 @@ public class Pessoa {
     private String email;
     private Integer idade;
     private String dataNascimento;
+    private Boolean isVacinada;
+    
+    @ManyToOne
+    @JoinColumn(name = "codigo_grupo_prioridade")
+    private GruposPrioridades grupo;
 
     public Long getCodigo() {
         return codigo;
@@ -82,6 +90,24 @@ public class Pessoa {
     public void setDataNascimento(String dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
+
+    public Boolean getIsVacinada() {
+        return isVacinada;
+    }
+
+    public void setIsVacinada(Boolean isVacinada) {
+        this.isVacinada = isVacinada;
+    }
+
+    public GruposPrioridades getGrupo() {
+        return grupo;
+    }
+
+    public void setGrupo(GruposPrioridades grupo) {
+        this.grupo = grupo;
+    }
+    
+    
 
     @Override
     public int hashCode() {

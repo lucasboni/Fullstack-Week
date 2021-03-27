@@ -5,9 +5,7 @@
  */
 package bittencourt.boni.FullStackWeek.resorce;
 
-import bittencourt.boni.FullStackWeek.domain.GruposPrioridades;
 import bittencourt.boni.FullStackWeek.domain.Pessoa;
-import bittencourt.boni.FullStackWeek.repository.GruposPrioridadeRepository;
 import bittencourt.boni.FullStackWeek.repository.PessoaRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,24 +23,27 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Lucas
  */
 @RestController
-@RequestMapping("/gruposprioridades")
-public class GruposPrioridadesResorce {
-     @Autowired
-    private GruposPrioridadeRepository repository;
+@RequestMapping("/pessoas")
+public class PessoaResorce {
+    
+    
+    @Autowired
+    private PessoaRepository repository;
     
     
     @GetMapping
-    public List<GruposPrioridades> listarTodos(){
+    public List<Pessoa> listarTodos(){
         return repository.findAll();
     }
     
     @PostMapping
-    public GruposPrioridades cadastrar(@RequestBody GruposPrioridades pessoa){
+    public Pessoa cadastrar(@RequestBody Pessoa pessoa){
+        pessoa.setIsVacinada(Boolean.FALSE);
         return repository.save(pessoa);
     }
     
-    /*@PutMapping("/{codigo}")
-    public ResponseEntity atualizar(@PathVariable("codigo") Long codigo,@RequestBody GruposPrioridades gruposPrioridades){
+    @PutMapping("/{codigo}")
+    public ResponseEntity atualizar(@PathVariable("codigo") Long codigo,@RequestBody Pessoa pessoa){
         return repository.findById(codigo).map(record ->{
                    record.setCpf(pessoa.getCpf()); 
                    record.setDataNascimento(pessoa.getDataNascimento()); 
@@ -53,7 +54,7 @@ public class GruposPrioridadesResorce {
                    return ResponseEntity.ok().body(pessoaAtualizada);
                 }
         ).orElse(ResponseEntity.notFound().build());
-    }*/
+    }
     
     @GetMapping("/{codigo}")
     public ResponseEntity buscar(@PathVariable("codigo") Long codigo){
@@ -63,4 +64,5 @@ public class GruposPrioridadesResorce {
                 }
         ).orElse(ResponseEntity.notFound().build());
     }
+            
 }
